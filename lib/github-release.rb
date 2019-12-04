@@ -3,7 +3,9 @@ class GithubPreReleaseDownloadStrategy < CurlDownloadStrategy
     @url = getFromApi('releases')
       .find { |r| r['prerelease'] == true }
       .fetch('assets')
-      .find { |a| a['name'].include? 'macos' }
+      .find { |a| 
+        a['content_type'] == 'application/gzip' && a['name'].include?('macos')
+      }
       .fetch('url')
     super
   end
