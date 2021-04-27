@@ -1,5 +1,5 @@
 class GithubPreReleaseDownloadStrategy < CurlDownloadStrategy
-  def fetch
+  def fetch(timeout: nil, **options)
     @url = getFromApi('releases')
       .find { |r| r['prerelease'] == true }
       .fetch('assets')
